@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Krishna Stories · Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(145deg, #fff8e7 0%, #ffe9d6 100%);
+      color: #2e1b0e;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ===== Animated background ===== */
+    .bg-float {
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.09;
+      animation: floatAround 14s ease-in-out infinite;
+    }
+    .bg-float:nth-child(1) { top: 5%; left: 2%; font-size: 6rem; animation-delay: 0s; }
+    .bg-float:nth-child(2) { bottom: 8%; right: 3%; font-size: 10rem; animation-delay: 2s; }
+    .bg-float:nth-child(3) { top: 40%; right: 10%; font-size: 4rem; animation-delay: 4s; }
+    .bg-float:nth-child(4) { bottom: 20%; left: 8%; font-size: 5rem; animation-delay: 1s; }
+
+    @keyframes floatAround {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); }
+      25%  { transform: translateY(-25px) rotate(6deg) scale(1.05); }
+      50%  { transform: translateY(-10px) rotate(-4deg) scale(0.98); }
+      75%  { transform: translateY(-30px) rotate(8deg) scale(1.02); }
+      100% { transform: translateY(0) rotate(0deg) scale(1); }
+    }
+
+    /* ===== Sparkles ===== */
+    .sparkle {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: sparkleAnim 3s ease-in-out infinite;
+    }
+    @keyframes sparkleAnim {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50%      { opacity: 0.8; transform: scale(1.2); }
+    }
+
+    /* ===== Container ===== */
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      margin-bottom: 3rem;
+      animation: headerEnter 1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes headerEnter {
+      0%   { opacity: 0; transform: translateY(-60px) scale(0.8); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .header h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: #9b4b1f;
+      text-shadow: 6px 6px 0 #ffe0b5, 2px 2px 0 #c76b2e;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      display: inline-block;
+      background: rgba(255, 250, 235, 0.75);
+      padding: 0.4rem 2.5rem 0.8rem;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 12px 20px -10px rgba(155, 75, 31, 0.3);
+      border: 2px solid #ffc489;
+      margin-bottom: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .header h1::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      animation: shine 3s ease-in-out infinite;
+    }
+    @keyframes shine {
+      0%       { left: -100%; }
+      50%, 100% { left: 100%; }
+    }
+
+    .header h1 span {
+      display: inline-block;
+      animation: bounceIcon 2.5s infinite;
+    }
+    .header h1 span:last-child { animation-delay: 0.4s; }
+
+    @keyframes bounceIcon {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      30%      { transform: translateY(-10px) rotate(10deg) scale(1.15); }
+      60%      { transform: translateY(-5px) rotate(-5deg) scale(1.05); }
+    }
+
+    .subhead {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #7b3f1a;
+      background: #fdebd0;
+      display: inline-block;
+      padding: 0.4rem 1.8rem;
+      border-radius: 40px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      border: 1px dashed #d99b6c;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+    @keyframes fadeInUp {
+      0%   { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Story menu ===== */
+    .story-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .menu-card {
+      background: #fffef9;
+      border-radius: 48px 48px 48px 48px / 32px 32px 32px 32px;
+      box-shadow: 0 20px 30px -10px rgba(120, 60, 20, 0.2), 0 0 0 2px #ffe3c2, 0 0 0 6px #fff9f0;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #f7d2b0;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      animation: cardEnter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      cursor: pointer;
+    }
+    .menu-card:nth-child(1) { animation-delay: 0.15s; }
+    .menu-card:nth-child(2) { animation-delay: 0.30s; }
+    .menu-card:nth-child(3) { animation-delay: 0.45s; }
+
+    @keyframes cardEnter {
+      0%   { opacity: 0; transform: scale(0.7) translateY(60px) rotate(-3deg); }
+      100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+    }
+
+    .menu-card:hover {
+      transform: translateY(-15px) scale(1.03) rotate(1deg);
+      box-shadow: 0 40px 50px -14px #b4724b, 0 0 0 3px #fdc28c, 0 0 0 8px #fff1e0;
+    }
+
+    .menu-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 220, 150, 0.4), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .menu-card:hover::before { opacity: 1; }
+
+    .menu-card .card-illustration {
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5.5rem;
+      position: relative;
+      background: radial-gradient(circle at 30% 20%, #fff3d1, #fad6a8);
+      border-bottom: 4px dashed #eebb8b;
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    .menu-card .card-illustration::after {
+      content: "";
+      position: absolute;
+      bottom: -20px; left: 50%;
+      transform: translateX(-50%);
+      width: 60%; height: 30px;
+      background: radial-gradient(ellipse, rgba(200, 120, 50, 0.15), transparent 70%);
+      border-radius: 50%;
+      transition: all 0.4s;
+    }
+    .menu-card:hover .card-illustration {
+      background: radial-gradient(circle at 70% 80%, #ffe8c0, #fccf9a);
+    }
+    .menu-card:hover .card-illustration::after {
+      width: 80%;
+      opacity: 0.8;
+    }
+
+    .menu-card .card-illustration span {
+      display: inline-block;
+      animation: emojiFloat 3s ease-in-out infinite;
+    }
+    .menu-card .card-illustration span:nth-child(1) { animation-delay: 0s; }
+    .menu-card .card-illustration span:nth-child(2) { animation-delay: 0.5s; }
+    .menu-card .card-illustration span:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes emojiFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      25%      { transform: translateY(-10px) rotate(8deg) scale(1.15); }
+      75%      { transform: translateY(-5px) rotate(-8deg) scale(1.1); }
+    }
+
+    .card-makhan .card-illustration { background: radial-gradient(circle at 70% 30%, #fff0c0, #ffe0b0); }
+    .card-sudama .card-illustration { background: radial-gradient(circle at 20% 50%, #fbe9d2, #f5d5b0); }
+    .card-kaliya .card-illustration { background: radial-gradient(circle at 50% 30%, #d9e9fa, #b8d4f0); }
+
+    .menu-card .card-content {
+      padding: 1.6rem 1.4rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .menu-card .story-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #8b3e0e;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .menu-card .story-desc {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4b2b13;
+      background: #fef7e9;
+      padding: 0.8rem 1rem;
+      border-radius: 24px;
+      border-left: 8px solid #f7b77a;
+      flex: 1;
+    }
+
+    .explore-btn {
+      margin-top: 1rem;
+      display: inline-block;
+      background: #ffb26e;
+      border: none;
+      border-radius: 60px;
+      padding: 0.7rem 1.6rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #321f0f;
+      box-shadow: 0 6px 0 #b15d1e, 0 6px 12px rgba(180, 100, 20, 0.3);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+      border: 1px solid #fec28c;
+      position: relative;
+      overflow: hidden;
+    }
+    .explore-btn::after {
+      content: "→";
+      display: inline-block;
+      margin-left: 0;
+      width: 0;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .menu-card:hover .explore-btn { background: #ffa74b; transform: scale(1.06); }
+    .menu-card:hover .explore-btn::after { width: 20px; opacity: 1; margin-left: 6px; }
+
+    /* ===== Footer ===== */
+    .footer-note {
+      margin-top: 3rem;
+      font-size: 1.1rem;
+      color: #b4724b;
+      font-weight: 600;
+      background: #ffebd6;
+      padding: 0.6rem 2.5rem;
+      border-radius: 60px;
+      box-shadow: 0 6px 0 #d9a77b;
+      border: 1px solid #f7c8a2;
+      display: inline-block;
+      animation: fadeInUp 0.8s ease-out 0.9s both;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 650px) {
+      .header h1 { font-size: 2.4rem; padding: 0.2rem 1.2rem 0.6rem; }
+      .subhead { font-size: 1rem; }
+      .menu-card .card-illustration { font-size: 4rem; height: 150px; }
+      .menu-card .story-title { font-size: 1.5rem; }
+      .bg-float { font-size: 3rem; }
+    }
+
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: #ffebd6; }
+    ::-webkit-scrollbar-thumb {
+      background: #c47a4a;
+      border-radius: 10px;
+      border: 2px solid #ffebd6;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-float">🪶</div>
+  <div class="bg-float">🪈</div>
+  <div class="bg-float">🪶</div>
+  <div class="bg-float">🦚</div>
+
+  <div class="sparkle" style="top: 15%; left: 20%; background: #ffd700; animation-delay: 0s;"></div>
+  <div class="sparkle" style="top: 60%; left: 85%; background: #ffb347; animation-delay: 0.8s;"></div>
+  <div class="sparkle" style="top: 80%; left: 15%; background: #87ceeb; animation-delay: 1.6s;"></div>
+  <div class="sparkle" style="top: 30%; left: 70%; background: #ffa07a; animation-delay: 2.2s;"></div>
+  <div class="sparkle" style="top: 50%; left: 40%; background: #ffd700; animation-delay: 0.4s;"></div>
+
+  <div class="container">
+    <div class="header">
+      <h1><span>🪈</span> Little Krishna Stories <span>🪶</span></h1>
+      <div class="subhead">✨ Choose an adventure ✨</div>
+    </div>
+
+    <div class="story-menu">
+      <a href="makhan.html" class="menu-card card-makhan">
+        <div class="card-illustration">
+          <span>🧈</span><span>🍯</span><span>🐄</span>
+        </div>
+        <div class="card-content">
+          <div class="story-title">🧈 Makhan Chor</div>
+          <div class="story-desc">
+            Little Krishna steals butter with his friends! A delightful tale of childhood mischief and Mother Yashoda's love.
+          </div>
+          <div class="explore-btn">🪈 Read & Listen</div>
+        </div>
+      </a>
+
+      <a href="sudama.html" class="menu-card card-sudama">
+        <div class="card-illustration">
+          <span>🌾</span><span>🤝</span><span>🍚</span>
+        </div>
+        <div class="card-content">
+          <div class="story-title">🤝 Krishna & Sudama</div>
+          <div class="story-desc">
+            The touching friendship of Krishna and his poor friend Sudama. A humble gift of flattened rice brings boundless blessings.
+          </div>
+          <div class="explore-btn">🪈 Read & Listen</div>
+        </div>
+      </a>
+
+      <a href="kaliya.html" class="menu-card card-kaliya">
+        <div class="card-illustration">
+          <span>🐍</span><span>⛰️</span><span>🌿</span>
+        </div>
+        <div class="card-content">
+          <div class="story-title">🐍 Kaliya Naag & Govardhan</div>
+          <div class="story-desc">
+            Krishna subdues the serpent Kaliya and lifts the Govardhan hill to protect his village. A story of courage and divinity.
+          </div>
+          <div class="explore-btn">🪈 Read & Listen</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="footer-note">
+      🦚 Click any story to begin your journey 🦚
+    </div>
+  </div>
+
+  <script>
+    function createSparkles() {
+      const colors = ['#ffd700', '#ffb347', '#87ceeb', '#ffa07a', '#ff6b6b', '#a29bfe'];
+      for (let i = 0; i < 15; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        sparkle.style.animationDelay = Math.random() * 3 + 's';
+        sparkle.style.animationDuration = (2 + Math.random() * 3) + 's';
+        document.body.appendChild(sparkle);
+      }
+    }
+    createSparkles();
+  </script>
+</body>
+</html>
